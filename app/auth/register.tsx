@@ -41,6 +41,12 @@ export default function RegisterScreen() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      fullName: '',
+    },
   });
 
   const onSubmit = async (data: FormData) => {
