@@ -25,14 +25,22 @@ export function FormInput({ label, error, style, ...props }: FormInputProps) {
         placeholderTextColor="#9CA3AF"
         {...props}
       />
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {error && (
+        <Text 
+          style={styles.errorText}
+          testID={`${props.testID}-error`}
+        >
+          {error}
+        </Text>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 16,
+    marginBottom: 20, // Increased from 16 to provide more space between inputs
+    minHeight: 80, // Ensure minimum height to accommodate error text
   },
   label: {
     fontSize: 14,

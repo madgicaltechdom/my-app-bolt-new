@@ -1,5 +1,18 @@
 import { Tabs } from 'expo-router';
 import { Chrome as Home, User, Settings } from 'lucide-react-native';
+import { TouchableOpacity } from 'react-native';
+
+// Custom tab bar button component with testID
+interface TabBarButtonProps extends React.ComponentProps<typeof TouchableOpacity> {
+  testID: string;
+  children: React.ReactNode;
+}
+
+const TabBarButton = ({ testID, children, ...props }: TabBarButtonProps) => (
+  <TouchableOpacity {...props} testID={testID}>
+    {children}
+  </TouchableOpacity>
+);
 
 export default function TabLayout() {
   return (
@@ -26,8 +39,14 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
+          tabBarButton: (props) => (
+            <TabBarButton
+              {...props}
+              testID="home-tab"
+            />
+          ),
           tabBarIcon: ({ size, color }) => (
-            <Home size={size} color={color} />
+            <Home size={size} color={color} testID="home-tab-icon" />
           ),
         }}
       />
@@ -35,8 +54,14 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: 'Profile',
+          tabBarButton: (props) => (
+            <TabBarButton
+              {...props}
+              testID="profile-tab"
+            />
+          ),
           tabBarIcon: ({ size, color }) => (
-            <User size={size} color={color} />
+            <User size={size} color={color} testID="profile-tab-icon" />
           ),
         }}
       />
@@ -44,8 +69,14 @@ export default function TabLayout() {
         name="settings"
         options={{
           title: 'Settings',
+          tabBarButton: (props) => (
+            <TabBarButton
+              {...props}
+              testID="settings-tab"
+            />
+          ),
           tabBarIcon: ({ size, color }) => (
-            <Settings size={size} color={color} />
+            <Settings size={size} color={color} testID="settings-tab-icon" />
           ),
         }}
       />

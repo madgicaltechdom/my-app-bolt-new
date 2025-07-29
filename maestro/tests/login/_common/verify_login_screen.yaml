@@ -1,0 +1,13 @@
+# Verifies all login screen elements are visible
+appId: com.kapil.jain.boltexponativewind
+---
+- assertVisible: 
+    id: "${output.login.emailInput}"
+- assertVisible: 
+    id: "${output.login.passwordInput}"
+- assertVisible: 
+    id: "${output.login.signInButton}"
+- assertVisible: 
+    id: "${output.login.forgotPasswordLink}"
+- assertVisible: 
+    id: "${output.login.signUpLink}"

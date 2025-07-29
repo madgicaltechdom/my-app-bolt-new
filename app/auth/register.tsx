@@ -5,6 +5,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { useAuth } from '@/hooks/useAuth';
 import { FormInput } from '@/components/FormInput';
@@ -13,6 +16,7 @@ import { Link, useRouter } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { ArrowLeft } from 'lucide-react-native';
 
 const schema = yup.object({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -66,11 +70,29 @@ export default function RegisterScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subtitle}>Sign up to get started</Text>
-      </View>
+    <KeyboardAvoidingView 
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
+    >
+      <ScrollView 
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollViewContent}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.content}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => router.back()}
+            testID="back-button"
+          >
+            <ArrowLeft size={24} color="#3B82F6" testID="back-icon" />
+          </TouchableOpacity>
+
+          <View style={styles.header}>
+            <Text style={styles.title} testID="register-title">Create Account</Text>
+            <Text style={styles.subtitle} testID="register-subtitle">Sign up to get started</Text>
+          </View>
 
       <View style={styles.form}>
         <Controller
@@ -83,6 +105,7 @@ export default function RegisterScreen() {
               onChangeText={onChange}
               onBlur={onBlur}
               error={errors.fullName?.message}
+              testID="full-name-input"
             />
           )}
         />
@@ -99,6 +122,7 @@ export default function RegisterScreen() {
               keyboardType="email-address"
               autoCapitalize="none"
               error={errors.email?.message}
+              testID="email-input"
             />
           )}
         />
@@ -114,6 +138,7 @@ export default function RegisterScreen() {
               onBlur={onBlur}
               secureTextEntry
               error={errors.password?.message}
+              testID="password-input"
             />
           )}
         />
@@ -129,6 +154,7 @@ export default function RegisterScreen() {
               onBlur={onBlur}
               secureTextEntry
               error={errors.confirmPassword?.message}
+              testID="confirm-password-input"
             />
           )}
         />
@@ -138,18 +164,22 @@ export default function RegisterScreen() {
           onPress={handleSubmit(onSubmit)}
           loading={loading}
           style={styles.signUpButton}
+          testID="sign-up-button"
         />
       </View>
 
+        </View>
+      </ScrollView>
+      
       <View style={styles.footer}>
         <Text style={styles.footerText}>Already have an account? </Text>
         <Link href="/auth/login" asChild>
-          <TouchableOpacity>
+          <TouchableOpacity testID="sign-in-link">
             <Text style={styles.linkText}>Sign In</Text>
           </TouchableOpacity>
         </Link>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -157,11 +187,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    padding: 24,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    padding: 20,
+  },
+  content: {
+    flex: 1,
+  },
+  backButton: {
+    marginTop: 16,
+    marginBottom: 24,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   header: {
-    paddingTop: 60,
-    paddingBottom: 40,
+    marginBottom: 32,
     alignItems: 'center',
   },
   title: {
@@ -175,16 +222,23 @@ const styles = StyleSheet.create({
     color: '#6B7280',
   },
   form: {
-    flex: 1,
+    marginBottom: 20,
+  },
+  inputContainer: {
+    marginBottom: 16,
   },
   signUpButton: {
-    marginTop: 24,
+    marginTop: 16,
+    marginBottom: 32,
   },
   footer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 20, // Added vertical padding
     paddingBottom: 40,
+    backgroundColor: '#FFFFFF', // Ensure background color covers any content
+    zIndex: 1, // Ensure footer stays above other content
   },
   footerText: {
     fontSize: 14,

@@ -1,0 +1,35 @@
+# Test login with invalid email format
+appId: com.kapil.jain.boltexponativewind
+---
+
+# Load POM
+- runScript: 
+    file: ../../elements/login.js
+
+# Launch the app
+- runFlow: "_common/launch_app.yaml"
+
+# Verify login screen elements are visible
+- runFlow: "_common/verify_login_screen.yaml"
+
+# Fill in credentials with invalid email
+- runFlow: 
+    file: "_common/fill_credentials.yaml"
+    env:
+      LOGIN_EMAIL: "invalid-email"
+      LOGIN_PASSWORD: "testpassword123"
+
+# Submit login form
+- runFlow: "_common/submit_login.yaml"
+
+# Wait for the validation to complete
+- waitForAnimationToEnd
+
+# Verify the email validation error is shown
+- assertVisible:
+    id: "email-input-error"
+    text: "Invalid email"
+
+# Verify we're still on the login screen
+- assertVisible:
+    id: "${output.login.signInButton}"

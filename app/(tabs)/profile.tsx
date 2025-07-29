@@ -40,21 +40,22 @@ export default function ProfileScreen() {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} testID="profile-scrollview">
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Profile</Text>
+        <Text style={styles.headerTitle} testID="profile-title">Profile</Text>
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => setIsEditing(!isEditing)}
+          testID="edit-profile-button"
         >
-          <Edit3 size={20} color="#3B82F6" />
+          <Edit3 size={20} color="#3B82F6" testID="edit-icon" />
         </TouchableOpacity>
       </View>
 
-      <View style={styles.profileCard}>
-        <View style={styles.avatarContainer}>
-          <View style={styles.avatar}>
-            <User size={40} color="#6B7280" />
+      <View style={styles.profileCard} testID="profile-card">
+        <View style={styles.avatarContainer} testID="avatar-container">
+          <View style={styles.avatar} testID="avatar">
+            <User size={40} color="#6B7280" testID="user-icon" />
           </View>
         </View>
 
@@ -64,32 +65,36 @@ export default function ProfileScreen() {
             onSubmit={handleUpdateProfile}
             onCancel={() => setIsEditing(false)}
             loading={updating}
+            testID="profile-form"
           />
         ) : (
-          <View style={styles.profileInfo}>
-            <Text style={styles.nameText}>
+          <View style={styles.profileInfo} testID="profile-info">
+            <Text style={styles.nameText} testID="user-name">
               {user.user_metadata?.full_name || 'No name set'}
             </Text>
-            <Text style={styles.emailText}>{user.email}</Text>
+            <Text style={styles.emailText} testID="user-email">{user.email}</Text>
             
-            <View style={styles.infoSection}>
-              <Text style={styles.sectionTitle}>Bio</Text>
-              <Text style={styles.bioText}>
+            <View style={styles.infoSection} testID="bio-section">
+              <Text style={styles.sectionTitle} testID="bio-title">Bio</Text>
+              <Text style={styles.bioText} testID="bio-text">
                 {user.user_metadata?.bio || 'No bio added yet'}
               </Text>
             </View>
 
-            <View style={styles.infoSection}>
-              <Text style={styles.sectionTitle}>Account Info</Text>
-              <View style={styles.infoRow}>
-                <Text style={styles.infoLabel}>Email Verified:</Text>
-                <Text style={[styles.infoValue, { color: user.email_confirmed_at ? '#10B981' : '#EF4444' }]}>
+            <View style={styles.infoSection} testID="account-info-section">
+              <Text style={styles.sectionTitle} testID="account-info-title">Account Info</Text>
+              <View style={styles.infoRow} testID="email-verified-row">
+                <Text style={styles.infoLabel} testID="email-verified-label">Email Verified:</Text>
+                <Text 
+                  style={[styles.infoValue, { color: user.email_confirmed_at ? '#10B981' : '#EF4444' }]}
+                  testID="email-verified-value"
+                >
                   {user.email_confirmed_at ? 'Yes' : 'No'}
                 </Text>
               </View>
-              <View style={styles.infoRow}>
-                <Text style={styles.infoLabel}>Member Since:</Text>
-                <Text style={styles.infoValue}>
+              <View style={styles.infoRow} testID="member-since-row">
+                <Text style={styles.infoLabel} testID="member-since-label">Member Since:</Text>
+                <Text style={styles.infoValue} testID="member-since-value">
                   {new Date(user.created_at).toLocaleDateString()}
                 </Text>
               </View>

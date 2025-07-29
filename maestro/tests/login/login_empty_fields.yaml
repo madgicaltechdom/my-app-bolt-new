@@ -1,0 +1,34 @@
+# Test empty field validations for login
+appId: com.kapil.jain.boltexponativewind
+---
+
+# Load POM
+- runScript: 
+    file: ../../elements/login.js
+
+# Launch the app
+- runFlow: "_common/launch_app.yaml"
+
+# Verify login screen elements are visible
+- runFlow: "_common/verify_login_screen.yaml"
+
+# Test 1: Empty email validation
+- tapOn: 
+    id: "${output.login.signInButton}"
+- assertVisible: 
+    id: "email-input-error"
+    text: "Email is required"
+
+# Test 2: Empty password validation (after entering email)
+- tapOn: 
+    id: "${output.login.emailInput}"
+- inputText: "test@example.com"
+- tapOn: 
+    id: "${output.login.signInButton}"
+- assertVisible: 
+    id: "password-input-error"
+    text: "Password is required"
+
+# Verify the login button is still visible and enabled
+- assertVisible: 
+    id: "${output.login.signInButton}"

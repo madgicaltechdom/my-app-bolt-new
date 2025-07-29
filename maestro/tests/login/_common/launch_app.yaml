@@ -1,0 +1,6 @@
+# Launches the app with clean state
+appId: com.kapil.jain.boltexponativewind
+---
+- launchApp:
+    clearState: true
+    stopApp: true

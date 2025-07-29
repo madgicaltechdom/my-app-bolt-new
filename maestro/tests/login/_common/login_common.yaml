@@ -1,0 +1,30 @@
+# Common login flow using environment variables
+appId: com.kapil.jain.boltexponativewind
+---
+# Launch the app
+- launchApp:
+    clearState: true
+    stopApp: true
+
+# Verify login screen elements are visible
+- assertVisible: 
+    id: "${output.login.emailInput}"
+- assertVisible: 
+    id: "${output.login.passwordInput}"
+- assertVisible: 
+    id: "${output.login.signInButton}"
+
+# Perform login with provided credentials
+- tapOn: 
+    id: "${output.login.emailInput}"
+- eraseText
+- inputText: ${LOGIN_EMAIL}
+
+- tapOn: 
+    id: "${output.login.passwordInput}"
+- eraseText
+- inputText: ${LOGIN_PASSWORD}
+
+- tapOn: 
+    id: "${output.login.signInButton}"
+- waitForAnimationToEnd

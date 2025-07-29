@@ -33,36 +33,43 @@ export default function HomeScreen() {
     <ScrollView
       style={styles.container}
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl 
+          refreshing={refreshing} 
+          onRefresh={onRefresh} 
+          testID="refresh-control"
+        />
       }
+      testID="home-scrollview"
     >
-      <View style={styles.header}>
-        <Text style={styles.welcomeText}>Welcome back!</Text>
-        <Text style={styles.nameText}>{user.user_metadata?.full_name || user.email}</Text>
+      <View style={styles.header} testID="header-container">
+        <Text style={styles.welcomeText} testID="welcome-text">Welcome back!</Text>
+        <Text style={styles.nameText} testID="user-name">
+          {user.user_metadata?.full_name || user.email}
+        </Text>
       </View>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Quick Stats</Text>
+      <View style={styles.card} testID="quick-stats-card">
+        <Text style={styles.cardTitle} testID="quick-stats-title">Quick Stats</Text>
         <View style={styles.statsContainer}>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>1</Text>
+          <View style={styles.statItem} testID="profile-stat">
+            <Text style={styles.statNumber} testID="profile-count">1</Text>
             <Text style={styles.statLabel}>Profile</Text>
           </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>0</Text>
+          <View style={styles.statItem} testID="connections-stat">
+            <Text style={styles.statNumber} testID="connections-count">0</Text>
             <Text style={styles.statLabel}>Connections</Text>
           </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>5</Text>
+          <View style={styles.statItem} testID="activity-stat">
+            <Text style={styles.statNumber} testID="days-active-count">5</Text>
             <Text style={styles.statLabel}>Days Active</Text>
           </View>
         </View>
       </View>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Recent Activity</Text>
-        <Text style={styles.activityText}>Profile created successfully</Text>
-        <Text style={styles.activityText}>Email verified</Text>
+      <View style={styles.card} testID="recent-activity-card">
+        <Text style={styles.cardTitle} testID="activity-title">Recent Activity</Text>
+        <Text style={styles.activityText} testID="activity-1">Profile created successfully</Text>
+        <Text style={styles.activityText} testID="activity-2">Email verified</Text>
       </View>
     </ScrollView>
   );

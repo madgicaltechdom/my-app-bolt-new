@@ -1,0 +1,6 @@
+# Submits the login form
+appId: com.kapil.jain.boltexponativewind
+---
+- tapOn: 
+    id: "${output.login.signInButton}"
+- waitForAnimationToEnd

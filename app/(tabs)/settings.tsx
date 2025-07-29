@@ -36,57 +36,65 @@ export default function SettingsScreen() {
       title: 'Security',
       subtitle: 'Change password, two-factor auth',
       onPress: handlePasswordReset,
+      testID: 'security-option',
     },
     {
       icon: Bell,
       title: 'Notifications',
       subtitle: 'Push notifications, email alerts',
       onPress: () => Alert.alert('Coming Soon', 'Notification settings will be available soon'),
+      testID: 'notifications-option',
     },
     {
       icon: HelpCircle,
       title: 'Help & Support',
       subtitle: 'FAQs, contact support',
       onPress: () => Alert.alert('Help', 'Contact us at support@yourapp.com'),
+      testID: 'help-option',
     },
   ];
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Settings</Text>
+    <ScrollView style={styles.container} testID="settings-scrollview">
+      <View style={styles.header} testID="settings-header">
+        <Text style={styles.headerTitle} testID="settings-title">Settings</Text>
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>General</Text>
+      <View style={styles.section} testID="general-section">
+        <Text style={styles.sectionTitle} testID="general-section-title">General</Text>
         {settingsOptions.map((option, index) => (
           <TouchableOpacity
             key={index}
             style={styles.settingItem}
             onPress={option.onPress}
+            testID={option.testID}
           >
-            <View style={styles.settingIcon}>
-              <option.icon size={20} color="#6B7280" />
+            <View style={styles.settingIcon} testID={`${option.testID}-icon`}>
+              <option.icon size={20} color="#6B7280" testID={`${option.testID}-icon-svg`} />
             </View>
-            <View style={styles.settingContent}>
-              <Text style={styles.settingTitle}>{option.title}</Text>
-              <Text style={styles.settingSubtitle}>{option.subtitle}</Text>
+            <View style={styles.settingContent} testID={`${option.testID}-content`}>
+              <Text style={styles.settingTitle} testID={`${option.testID}-title`}>{option.title}</Text>
+              <Text style={styles.settingSubtitle} testID={`${option.testID}-subtitle`}>{option.subtitle}</Text>
             </View>
-            <ChevronRight size={20} color="#9CA3AF" />
+            <ChevronRight size={20} color="#9CA3AF" testID={`${option.testID}-chevron`} />
           </TouchableOpacity>
         ))}
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Account</Text>
-        <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
-          <LogOut size={20} color="#EF4444" />
-          <Text style={styles.signOutText}>Sign Out</Text>
+      <View style={styles.section} testID="account-section">
+        <Text style={styles.sectionTitle} testID="account-section-title">Account</Text>
+        <TouchableOpacity 
+          style={styles.signOutButton} 
+          onPress={handleSignOut}
+          testID="sign-out-button"
+        >
+          <LogOut size={20} color="#EF4444" testID="sign-out-icon" />
+          <Text style={styles.signOutText} testID="sign-out-text">Sign Out</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.footer}>
-        <Text style={styles.versionText}>Version 1.0.0</Text>
+      <View style={styles.footer} testID="footer">
+        <Text style={styles.versionText} testID="version-text">Version 1.0.0</Text>
       </View>
     </ScrollView>
   );

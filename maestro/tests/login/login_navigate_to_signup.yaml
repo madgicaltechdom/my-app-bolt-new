@@ -1,0 +1,49 @@
+# Test configuration
+appId: com.kapil.jain.boltexponativewind
+---
+
+# Load POMs
+- runScript: 
+    file: ../../elements/login.js
+- runScript: 
+    file: ../../elements/register.js
+
+# Launch the app
+- runFlow: "_common/launch_app.yaml"
+
+# Verify login screen elements
+- runFlow: "_common/verify_login_screen.yaml"
+
+# Navigate to register screen
+- tapOn: 
+    id: "${output.login.signUpLink}"
+- waitForAnimationToEnd
+
+# Verify register screen elements
+- assertVisible:
+    id: "back-button"
+- assertVisible:
+    id: "register-title"
+- assertVisible:
+    id: "register-subtitle"
+- assertVisible:
+    id: "${output.register.fullNameInput}"
+- assertVisible:
+    id: "${output.register.emailInput}"
+- assertVisible:
+    id: "${output.register.passwordInput}"
+- assertVisible:
+    id: "${output.register.confirmPasswordInput}"
+- assertVisible:
+    id: "${output.register.signUpButton}"
+- assertVisible:
+    id: "${output.register.signInLink}"
+
+# Navigate back to login screen
+- tapOn:
+    id: "back-button"
+- waitForAnimationToEnd
+
+# Verify we're back at the login screen
+- assertVisible: 
+    id: "${output.login.signInButton}"

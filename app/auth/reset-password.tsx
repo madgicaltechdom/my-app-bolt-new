@@ -58,13 +58,17 @@ export default function ResetPasswordScreen() {
       <TouchableOpacity
         style={styles.backButton}
         onPress={() => router.back()}
+        testID="back-button"
       >
-        <ArrowLeft size={24} color="#3B82F6" />
+        <ArrowLeft size={24} color="#3B82F6" testID="back-icon" />
       </TouchableOpacity>
 
       <View style={styles.header}>
-        <Text style={styles.title}>Reset Password</Text>
-        <Text style={styles.subtitle}>
+        <Text style={styles.title} testID="reset-password-title">Reset Password</Text>
+        <Text 
+          style={styles.subtitle}
+          testID={sent ? 'reset-instructions-text' : 'enter-email-text'}
+        >
           {sent
             ? 'Check your email for reset instructions'
             : 'Enter your email to receive reset instructions'}
@@ -85,6 +89,7 @@ export default function ResetPasswordScreen() {
                 keyboardType="email-address"
                 autoCapitalize="none"
                 error={errors.email?.message}
+                testID="email-input"
               />
             )}
           />
@@ -94,6 +99,7 @@ export default function ResetPasswordScreen() {
             onPress={handleSubmit(onSubmit)}
             loading={loading}
             style={styles.resetButton}
+            testID="reset-password-button"
           />
         </View>
       )}
@@ -101,7 +107,7 @@ export default function ResetPasswordScreen() {
       <View style={styles.footer}>
         <Text style={styles.footerText}>Remember your password? </Text>
         <Link href="/auth/login" asChild>
-          <TouchableOpacity>
+          <TouchableOpacity testID="sign-in-link">
             <Text style={styles.linkText}>Sign In</Text>
           </TouchableOpacity>
         </Link>

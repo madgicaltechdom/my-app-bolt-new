@@ -15,7 +15,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 const schema = yup.object({
-  email: yup.string().email('Invalid email').required('Email is required'),
+  email: yup.string()
+    .email('Invalid email')
+    .max(64 + 1 + 255, 'Email is too long') // 64 (local) + @ + 255 (domain)
+    .test('email', 'Local part of email must be 64 characters or less', (value) => {
+      if (!value) return true; // Let required() handle empty values
+      const [localPart] = value.split('@');
+      return localPart.length <= 64;
+    })
+    .required('Email is required'),
   password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
 });
 
@@ -69,6 +77,7 @@ export default function LoginScreen() {
               keyboardType="email-address"
               autoCapitalize="none"
               error={errors.email?.message}
+              testID="email-input"
             />
           )}
         />
@@ -84,6 +93,7 @@ export default function LoginScreen() {
               onBlur={onBlur}
               secureTextEntry
               error={errors.password?.message}
+              testID="password-input"
             />
           )}
         />
@@ -93,10 +103,14 @@ export default function LoginScreen() {
           onPress={handleSubmit(onSubmit)}
           loading={loading}
           style={styles.signInButton}
+          testID="sign-in-button"
         />
 
         <Link href="/auth/reset-password" asChild>
-          <TouchableOpacity style={styles.forgotPassword}>
+          <TouchableOpacity 
+            style={styles.forgotPassword}
+            testID="forgot-password-button"
+          >
             <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
         </Link>
@@ -105,7 +119,7 @@ export default function LoginScreen() {
       <View style={styles.footer}>
         <Text style={styles.footerText}>Don't have an account? </Text>
         <Link href="/auth/register" asChild>
-          <TouchableOpacity>
+          <TouchableOpacity testID="sign-up-button">
             <Text style={styles.linkText}>Sign Up</Text>
           </TouchableOpacity>
         </Link>

@@ -1,0 +1,15 @@
+# Verifies all register screen elements are visible
+appId: com.kapil.jain.boltexponativewind
+---
+- assertVisible:
+    id: "${output.register.fullNameInput}"
+- assertVisible:
+    id: "${output.register.emailInput}"
+- assertVisible:
+    id: "${output.register.passwordInput}"
+- assertVisible:
+    id: "${output.register.confirmPasswordInput}"
+- assertVisible:
+    id: "${output.register.signUpButton}"
+- assertVisible:
+    id: "${output.register.signInLink}"

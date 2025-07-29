@@ -1,0 +1,6 @@
+# Navigates back to the login screen from other screens
+appId: com.kapil.jain.boltexponativewind
+---
+- tapOn: 
+    id: "back-button"
+- waitForAnimationToEnd

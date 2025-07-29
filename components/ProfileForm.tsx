@@ -6,38 +6,43 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-const schema = yup.object({
-  full_name: yup.string().required('Full name is required'),
-  bio: yup.string().max(500, 'Bio must be less than 500 characters'),
-});
-
 type FormData = {
   full_name: string;
   bio: string;
 };
+
+const schema = yup.object<FormData>({
+  full_name: yup.string().required('Full name is required'),
+  bio: yup.string().max(500, 'Bio must be less than 500 characters').default(''),
+});
 
 interface ProfileFormProps {
   user: any;
   onSubmit: (data: FormData) => void;
   onCancel: () => void;
   loading: boolean;
+  testID?: string;
 }
 
-export function ProfileForm({ user, onSubmit, onCancel, loading }: ProfileFormProps) {
+export function ProfileForm({ user, onSubmit, onCancel, loading, testID }: ProfileFormProps) {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any, // Type assertion to handle yup resolver type
     defaultValues: {
       full_name: user.user_metadata?.full_name || '',
       bio: user.user_metadata?.bio || '',
     },
   });
+  
+  const handleFormSubmit = (data: FormData) => {
+    onSubmit(data);
+  };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID={testID}>
       <Controller
         control={control}
         name="full_name"
@@ -48,6 +53,7 @@ export function ProfileForm({ user, onSubmit, onCancel, loading }: ProfileFormPr
             onChangeText={onChange}
             onBlur={onBlur}
             error={errors.full_name?.message}
+            testID="full-name-input"
           />
         )}
       />
@@ -65,6 +71,7 @@ export function ProfileForm({ user, onSubmit, onCancel, loading }: ProfileFormPr
             numberOfLines={4}
             style={styles.bioInput}
             error={errors.bio?.message}
+            testID="bio-input"
           />
         )}
       />
@@ -72,14 +79,16 @@ export function ProfileForm({ user, onSubmit, onCancel, loading }: ProfileFormPr
       <View style={styles.buttonContainer}>
         <LoadingButton
           title="Save Changes"
-          onPress={handleSubmit(onSubmit)}
+          onPress={handleSubmit(handleFormSubmit)}
           loading={loading}
           style={styles.saveButton}
+          testID="save-button"
         />
         <LoadingButton
           title="Cancel"
           onPress={onCancel}
           style={styles.cancelButton}
+          testID="cancel-button"
         />
       </View>
     </View>
