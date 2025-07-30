@@ -1,5 +1,15 @@
-# Test configuration
+# Test: Profile Save with Network Recovery
 appId: com.madgicaltechdom.storagesysapp
+name: User Profile - Network Failure on Save
+description: "Test to verify proper handling of network failures during profile save"
+tags:
+  - profile
+  - network
+  - error-handling
+  - recovery
+  - regression
+  - e2e
+  - flaky
 ---
 
 # Load POM

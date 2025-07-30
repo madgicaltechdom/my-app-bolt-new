@@ -1,5 +1,14 @@
-# Test configuration
+# Test: Login with valid credentials
 appId: com.kapil.jain.boltexponativewind
+name: Login - Success
+description: "Test successful login with valid credentials"
+tags:
+  - auth
+  - login
+  - smoke
+  - regression
+  - e2e
+
 ---
 
 # Load POM
@@ -18,6 +27,7 @@ appId: com.kapil.jain.boltexponativewind
     env:
       LOGIN_EMAIL: "kapil.jain@madgicaltechdom.com"
       LOGIN_PASSWORD: "Madgicaltechdom1"
+
 
 # Submit login form
 - runFlow: "_common/submit_login.yaml"

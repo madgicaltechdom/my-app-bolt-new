@@ -1,11 +1,17 @@
 # Verifies all profile screen elements are visible
 appId: com.madgicaltechdom.storagesysapp
+name: Verify Profile Screen Elements
+tags:
+  - profile
+  - verification
+  - smoke
+  - ui
 ---
 
 # Navigate to profile screen by tapping profile icon
 - tapOn: 
     id: "${output.userProfile.profileTab}"
-- waitForAnimationToEnd: true
+- waitForAnimationToEnd
 
 # Verify profile screen is loaded
 - assertVisible: 
