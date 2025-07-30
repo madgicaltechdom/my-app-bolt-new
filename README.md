@@ -277,8 +277,10 @@ npm run test:coverage
    ```
 
 4. **Best Practices**
-   - Keep test files in an `e2e` directory
-   - Use descriptive test names
+   - Organize test files in the `maestro/tests` directory with logical subdirectories
+   - Group related test files (e.g., `login/`, `profile/`) under their respective feature directories
+   - Place common test utilities and shared flows in `maestro/tests/_common`
+   - Use descriptive test names that clearly indicate the test scenario
    - Include assertions to verify test results
    - Clean up test data after test completion
 
