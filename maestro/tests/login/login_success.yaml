@@ -1,5 +1,12 @@
+# Test ID: LOGIN-SUCCESS-001
+# Description: Verify successful user login with valid credentials
+# Preconditions: User is registered and not logged in
+# Expected Results: User is logged in and redirected to the main app screen
+# Tags: [regression, authentication, login]
 # Test configuration
 appId: com.kapil.jain.boltexponativewind
+name: Login with valid credentials
+tags: [regression, authentication, critical]
 ---
 
 # Load POM
