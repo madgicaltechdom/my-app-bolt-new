@@ -1,0 +1,37 @@
+# Test configuration
+appId: com.madgicaltechdom.storagesysapp
+---
+
+# Load POM
+- runScript: 
+    file: ../../elements/userProfile.js
+    
+# Launch the app and login
+- runFlow: "../login/login_success.yaml"
+
+# Verify profile screen elements (includes navigation to profile)
+- runFlow: "_common/verify_profile_screen.yaml"
+
+# Start editing profile
+- tapOn: "${output.userProfile.editProfileButton}"
+- waitForAnimationToEnd: true
+
+# Fill in form with invalid email
+- runFlow: 
+    file: "_common/fill_profile_form.yaml"
+    env:
+      EMAIL: "invalid-email@"
+
+# Submit the form
+- runFlow: "_common/submit_profile_form.yaml"
+
+# Verify error message is shown
+- assertVisible: 
+    id: "${output.userProfile.emailError}"
+
+# Verify we're still in edit mode
+- assertVisible: 
+    id: "${output.userProfile.profileForm}"
+
+# Take screenshot for verification
+- takeScreenshot: "invalid_email_validation"

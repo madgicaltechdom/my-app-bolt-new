@@ -1,0 +1,8 @@
+# Submits the profile form
+appId: com.madgicaltechdom.storagesysapp
+---
+
+# Tap the save button
+- tapOn: 
+    id: "${output.userProfile.saveButton}"
+- waitForAnimationToEnd: true

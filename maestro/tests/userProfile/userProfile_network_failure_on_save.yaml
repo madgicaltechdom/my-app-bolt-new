@@ -1,0 +1,55 @@
+# Test configuration
+appId: com.madgicaltechdom.storagesysapp
+---
+
+# Load POM
+- runScript: 
+    file: ../../elements/userProfile.js
+    
+# Launch the app and login
+- runFlow: "../login/login_success.yaml"
+
+# Verify profile screen elements (includes navigation to profile)
+- runFlow: "_common/verify_profile_screen.yaml"
+
+# Start editing profile
+- tapOn: "${output.userProfile.editProfileButton}"
+- waitForAnimationToEnd: true
+
+# Fill in updated profile data
+- runFlow: 
+    file: "_common/fill_profile_form.yaml"
+    env:
+      NAME: "John Network Test"
+      BIO: "Testing network failure handling"
+
+# Enable airplane mode to simulate network failure
+- setAirplaneMode: true
+
+# Submit the form (should fail)
+- runFlow: "_common/submit_profile_form.yaml"
+
+# Verify error message is shown
+- assertVisible: 
+    id: "${output.userProfile.networkError}"
+- assertVisible: 
+    id: "${output.userProfile.retryButton}"
+
+# Disable airplane mode
+- setAirplaneMode: false
+
+# Retry the save
+- tapOn: 
+    id: "${output.userProfile.retryButton}"
+- waitForAnimationToEnd: true
+
+# Verify success after retry
+- assertVisible: 
+    id: "${output.userProfile.successMessage}"
+- assertVisible: 
+    text: "John Network Test"
+- assertVisible: 
+    text: "Testing network failure handling"
+
+# Take screenshot for verification
+- takeScreenshot: "network_recovery_success"

@@ -1,0 +1,25 @@
+# Fills in the profile form with the provided data
+appId: com.madgicaltechdom.storagesysapp
+---
+
+# Verify form is in edit mode
+- assertVisible: 
+    id: "${output.userProfile.profileForm}"
+
+# Update name field if provided
+- if:
+    defined: "${NAME}"
+  then:
+    - tapOn: 
+        id: "${output.userProfile.nameInput}"
+    - eraseText
+    - inputText: "${NAME}"
+
+# Update bio field if provided
+- if:
+    defined: "${BIO}"
+  then:
+    - tapOn: 
+        id: "${output.userProfile.bioInput}"
+    - eraseText
+    - inputText: "${BIO}"

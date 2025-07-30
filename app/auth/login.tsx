@@ -133,10 +133,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     padding: 24,
+    justifyContent: 'space-between',
   },
   header: {
-    paddingTop: 60,
-    paddingBottom: 40,
+    paddingTop: 40,
+    paddingBottom: 32,
     alignItems: 'center',
   },
   title: {
@@ -151,13 +152,18 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
+    justifyContent: 'center',
+    maxWidth: '100%',
+    width: '100%',
   },
   signInButton: {
     marginTop: 24,
+    marginBottom: 16,
   },
   forgotPassword: {
     alignItems: 'center',
-    marginTop: 16,
+    marginTop: 12,
+    marginBottom: 12,
   },
   forgotPasswordText: {
     fontSize: 14,
@@ -167,7 +173,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 40,
+    paddingVertical: 24,
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+    marginTop: 'auto',
   },
   footerText: {
     fontSize: 14,
@@ -177,5 +186,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#3B82F6',
     fontWeight: '500',
+    marginLeft: 4,
   },
 });

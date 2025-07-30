@@ -1,0 +1,54 @@
+# Verifies all profile screen elements are visible
+appId: com.madgicaltechdom.storagesysapp
+---
+
+# Navigate to profile screen by tapping profile icon
+- tapOn: 
+    id: "${output.userProfile.profileTab}"
+- waitForAnimationToEnd: true
+
+# Verify profile screen is loaded
+- assertVisible: 
+    id: "${output.userProfile.profileScrollView}"
+- assertVisible: 
+    id: "${output.userProfile.profileTitle}"
+- assertVisible: 
+    id: "${output.userProfile.editProfileButton}"
+- assertVisible: 
+    id: "${output.userProfile.editIcon}"
+- assertVisible: 
+    id: "${output.userProfile.profileCard}"
+- assertVisible: 
+    id: "${output.userProfile.avatarContainer}"
+- assertVisible: 
+    id: "${output.userProfile.avatar}"
+- assertVisible: 
+    id: "${output.userProfile.userIcon}"
+- assertVisible: 
+    id: "${output.userProfile.profileInfo}"
+- assertVisible: 
+    id: "${output.userProfile.userName}"
+- assertVisible: 
+    id: "${output.userProfile.userEmail}"
+- assertVisible: 
+    id: "${output.userProfile.bioSection}"
+- assertVisible: 
+    id: "${output.userProfile.bioTitle}"
+- assertVisible: 
+    id: "${output.userProfile.bioText}"
+- assertVisible: 
+    id: "${output.userProfile.accountInfoSection}"
+- assertVisible: 
+    id: "${output.userProfile.accountInfoTitle}"
+- assertVisible: 
+    id: "${output.userProfile.emailVerifiedRow}"
+- assertVisible: 
+    id: "${output.userProfile.emailVerifiedLabel}"
+- assertVisible: 
+    id: "${output.userProfile.emailVerifiedValue}"
+- assertVisible: 
+    id: "${output.userProfile.memberSinceRow}"
+- assertVisible: 
+    id: "${output.userProfile.memberSinceLabel}"
+- assertVisible: 
+    id: "${output.userProfile.memberSinceValue}"

@@ -1,0 +1,16 @@
+# Test configuration
+appId: com.madgicaltechdom.storagesysapp
+---
+
+# Load POM
+- runScript: 
+    file: ../../elements/userProfile.js
+    
+# Launch the app and login
+- runFlow: "../login/login_success.yaml"
+
+# Verify profile screen elements (includes navigation to profile)
+- runFlow: "_common/verify_profile_screen.yaml"
+
+# Take screenshot for verification
+- takeScreenshot: "user_profile_viewed"

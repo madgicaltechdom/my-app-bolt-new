@@ -1,0 +1,43 @@
+# Test configuration
+appId: com.madgicaltechdom.storagesysapp
+---
+
+# Load POM
+- runScript: 
+    file: ../../elements/userProfile.js
+    
+# Launch the app and login
+- runFlow: "../login/login_success.yaml"
+
+# Verify profile screen elements (includes navigation to profile)
+- runFlow: "_common/verify_profile_screen.yaml"
+
+# Start editing profile
+- tapOn: "${output.userProfile.editProfileButton}"
+- waitForAnimationToEnd: true
+
+# Tap on avatar to change picture
+- tapOn: 
+    id: "${output.userProfile.changeAvatarButton}"
+- waitForAnimationToEnd: true
+
+# Select photo from library
+- tapOn: 
+    text: "Choose from Library"
+- waitForAnimationToEnd: true
+
+# Select first photo
+# Note: This is platform-specific and might need adjustment
+- tapOn: 
+    text: "Photo, 1"
+- waitForAnimationToEnd: true
+
+# Submit the form
+- runFlow: "_common/submit_profile_form.yaml"
+
+# Verify success message
+- assertVisible: 
+    id: "${output.userProfile.successMessage}"
+
+# Take screenshot for verification
+- takeScreenshot: "profile_picture_uploaded"
