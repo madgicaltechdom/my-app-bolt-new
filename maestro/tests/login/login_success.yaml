@@ -19,12 +19,15 @@ tags: [regression, authentication, critical]
 # Verify login screen elements
 - runFlow: "_common/verify_login_screen.yaml"
 
+- runScript: 
+    file: "../../config/testdata.js"
+
 # Fill in credentials
 - runFlow: 
     file: "_common/fill_credentials.yaml"
     env:
-      LOGIN_EMAIL: "kapil.jain@madgicaltechdom.com"
-      LOGIN_PASSWORD: "Madgicaltechdom1"
+      LOGIN_EMAIL: "${output.testData.users.validUser.email}"
+      LOGIN_PASSWORD: "${output.testData.users.validUser.password}"
 
 
 # Submit login form
@@ -34,5 +37,5 @@ tags: [regression, authentication, critical]
 - runFlow: 
     file: "../_common/verify_home_screen.yaml"
     env:
-      ACTUAL_EMAIL: "Kapil Jain"
+      ACTUAL_EMAIL: "${output.testData.users.validUser.name}"
       

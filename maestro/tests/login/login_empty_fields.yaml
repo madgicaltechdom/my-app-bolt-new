@@ -2,8 +2,8 @@
 # Description: Verify validation for empty email and password fields
 # Preconditions: User is on the login screen with all fields empty
 # Expected Results: 
-#   - Empty email shows "Email is required"
-#   - Empty password shows "Password is required"
+#   - Empty email shows validation error
+#   - Empty password shows validation error
 #   - Login button remains enabled for correction
 # Tags: [regression, authentication, validation]
 # Test configuration
@@ -12,9 +12,11 @@ name: Login with empty fields validation
 tags: [regression, authentication, validation]
 ---
 
-# Load POM
+# Load POM and test data
 - runScript: 
     file: ../../elements/login.js
+- runScript: 
+    file: "../../config/testdata.js"
 
 # Launch the app
 - runFlow: "_common/launch_app.yaml"
@@ -22,11 +24,15 @@ tags: [regression, authentication, validation]
 # Verify login screen elements are visible
 - runFlow: "_common/verify_login_screen.yaml"
 
+# Get empty credentials from test data
+- runScript: |
+    output.emptyCreds = output.testData.invalidCredentials.emptyCredentials
+
 # Test 1: Empty email validation
 - tapOn: "${output.login.signInButton}"
 - assertVisible: 
     id: "email-input-error"
-    text: "Email is required"
+    text: "${output.emptyCreds.expectedError}"
 
 # Clear any input that might be there
 - clearText: "${output.login.emailInput}"
@@ -34,12 +40,12 @@ tags: [regression, authentication, validation]
 
 # Test 2: Empty password validation (after entering email only)
 - inputText: 
-    text: "test@example.com"
+    text: "${output.testData.users.validUser.email}"
     id: "${output.login.emailInput}"
 - tapOn: "${output.login.signInButton}"
 - assertVisible: 
     id: "password-input-error"
-    text: "Password is required"
+    text: "${output.emptyCreds.expectedError}"
 
 # Verify the login button is still visible and enabled
 - assertVisible: "${output.login.signInButton}"

@@ -1,4 +1,8 @@
-# Test: Edit Profile with Invalid Email
+# Test ID: PROFILE-EDIT-INVALID-EMAIL-001
+# Description: Verify proper validation when entering an invalid email
+# Preconditions: User is logged in and on the profile screen
+# Expected Results: Profile picture is uploaded successfully
+# Tags: [profile, upload, media, regression, e2e, flaky]
 appId: com.madgicaltechdom.storagesysapp
 name: User Profile - Edit with Invalid Email
 description: "Test to verify proper validation when entering an invalid email"

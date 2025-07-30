@@ -8,6 +8,11 @@ tags:
   - ui
 ---
 
+# Load POM elements and test data
+- runScript: "../../../elements/userProfile.js"
+- runScript: "../../../config/testdata.js"
+- evalScript: ${output.userData = output.testData.users.validUser}
+
 # Navigate to profile screen by tapping profile icon
 - tapOn: 
     id: "${output.userProfile.profileTab}"
@@ -16,45 +21,72 @@ tags:
 # Verify profile screen is loaded
 - assertVisible: 
     id: "${output.userProfile.profileScrollView}"
+
+# Verify header section
 - assertVisible: 
     id: "${output.userProfile.profileTitle}"
+    text: "Profile"
 - assertVisible: 
     id: "${output.userProfile.editProfileButton}"
 - assertVisible: 
     id: "${output.userProfile.editIcon}"
+
+# Verify profile card
 - assertVisible: 
     id: "${output.userProfile.profileCard}"
+
+# Verify avatar section
 - assertVisible: 
     id: "${output.userProfile.avatarContainer}"
 - assertVisible: 
     id: "${output.userProfile.avatar}"
 - assertVisible: 
     id: "${output.userProfile.userIcon}"
+
+# Verify user info section
 - assertVisible: 
     id: "${output.userProfile.profileInfo}"
 - assertVisible: 
     id: "${output.userProfile.userName}"
+    text: "${output.userData.name}"
 - assertVisible: 
     id: "${output.userProfile.userEmail}"
+    text: "${output.userData.email}"
+
+# Verify bio section
 - assertVisible: 
     id: "${output.userProfile.bioSection}"
 - assertVisible: 
     id: "${output.userProfile.bioTitle}"
+    text: "Bio"
 - assertVisible: 
     id: "${output.userProfile.bioText}"
+- assertVisible:
+    id: "${output.userProfile.bioText}"
+    text: "${output.userData.bio}"
+
+# Verify account info section
 - assertVisible: 
     id: "${output.userProfile.accountInfoSection}"
 - assertVisible: 
     id: "${output.userProfile.accountInfoTitle}"
+    text: "Account Info"
+    
+# Verify email verification status
 - assertVisible: 
     id: "${output.userProfile.emailVerifiedRow}"
 - assertVisible: 
     id: "${output.userProfile.emailVerifiedLabel}"
+    text: "Email Verified:"
 - assertVisible: 
     id: "${output.userProfile.emailVerifiedValue}"
+
+# Verify member since date
 - assertVisible: 
     id: "${output.userProfile.memberSinceRow}"
 - assertVisible: 
     id: "${output.userProfile.memberSinceLabel}"
+    text: "Member Since:"
 - assertVisible: 
     id: "${output.userProfile.memberSinceValue}"
+    text: "${output.userData.memberSince}"

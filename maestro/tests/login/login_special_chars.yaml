@@ -19,10 +19,14 @@ tags: [regression, authentication, security]
 # Launch the app
 - runFlow: "_common/launch_app.yaml"
 
-# Verify login screen elements are visible
+# Verify login screen elements
 - runFlow: "_common/verify_login_screen.yaml"
 
-# Define test data with special characters
+# Load test data
+- runScript: 
+    file: "../../config/testdata.js"
+
+# Define special characters password
 - runScript: |
     output.specialPassword = "!@#$%^&*()_+-=[]{}|;:,.<>?"
 
@@ -30,7 +34,7 @@ tags: [regression, authentication, security]
 - runFlow: 
     file: "_common/fill_credentials.yaml"
     env:
-      LOGIN_EMAIL: "test@example.com"
+      LOGIN_EMAIL: "${output.testData.users.specialCharUser.email}"
       LOGIN_PASSWORD: "${output.specialPassword}"
 
 # Verify the password was entered correctly (masked)
@@ -44,7 +48,10 @@ tags: [regression, authentication, security]
 # Wait for the login attempt to complete
 - waitForAnimationToEnd
 
-# Verify the error toast is shown for invalid credentials
+# Verify the error message for invalid credentials
+- assertVisible:
+    text: "Invalid email or password"
+    timeout: 5000
 - assertVisible:
     id: "toast-message"
     text: "Invalid login credentials"
