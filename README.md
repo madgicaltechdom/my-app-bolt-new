@@ -2,6 +2,24 @@
 
 A complete mobile authentication and profile management application built with Expo (React Native) and Supabase.
 
+## 📑 Table of Contents
+
+- [🚀 Features](#-features)
+- [🛠️ Tech Stack](#%EF%B8%8F-tech-stack)
+- [📦 Installation](#-installation)
+- [🚀 Running the App](#-running-the-app)
+- [📱 App Structure](#-app-structure)
+- [🔐 Authentication Flow](#-authentication-flow)
+- [🎨 UI/UX Features](#-uiux-features)
+- [🔧 Configuration](#-configuration)
+- [🧪 Testing](#-testing)
+  - [Running Tests](#running-tests)
+  - [Maestro E2E Testing](#maestro-e2e-testing)
+- [🚀 Deployment](#-deployment)
+- [📈 Performance Optimizations](#-performance-optimizations)
+- [🔒 Security Features](#-security-features)
+
+
 ## 🚀 Features
 
 - **Authentication System**
