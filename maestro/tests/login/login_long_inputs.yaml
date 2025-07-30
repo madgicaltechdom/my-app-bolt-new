@@ -1,5 +1,15 @@
-# Test login with long inputs
+# Test ID: LOGIN-LONG-INPUTS-001
+# Description: Verify login form validation for long email and password inputs
+# Preconditions: User is on the login screen
+# Expected Results:
+#   - System displays appropriate error message for email that's too long
+#   - Form prevents submission with invalid long email format
+#   - User remains on the login screen with form still functional
+# Tags: [regression, authentication, validation]
+# Test configuration
 appId: com.kapil.jain.boltexponativewind
+name: Login with long input validation
+tags: [regression, authentication, validation]
 ---
 
 # Load POM
@@ -14,6 +24,14 @@ appId: com.kapil.jain.boltexponativewind
 
 # Generate test data with long email and password
 - runScript: _common/generate_long_string.js
+
+# Verify the script generated the long strings
+- assertNotEqual: 
+    actual: "${output.longEmail}"
+    expected: ""
+- assertNotEqual:
+    actual: "${output.longPassword}"
+    expected: ""
 
 # Fill in credentials with the generated long strings
 - runFlow: 
@@ -33,6 +51,12 @@ appId: com.kapil.jain.boltexponativewind
     id: "email-input-error"
     text: "Local part of email must be 64 characters or less"
 
-# Verify we're still on the login screen
+# Verify we're still on the login screen and form is still functional
+- assertVisible: "${output.login.signInButton}"
+- assertVisible: "${output.login.emailInput}"
+- assertVisible: "${output.login.passwordInput}"
+
+# Verify the login button is still enabled for correction
 - assertVisible:
     id: "${output.login.signInButton}"
+    enabled: true

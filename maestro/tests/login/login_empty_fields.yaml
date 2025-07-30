@@ -1,5 +1,15 @@
-# Test empty field validations for login
+# Test ID: LOGIN-EMPTY-FIELDS-001
+# Description: Verify validation for empty email and password fields
+# Preconditions: User is on the login screen with all fields empty
+# Expected Results: 
+#   - Empty email shows "Email is required"
+#   - Empty password shows "Password is required"
+#   - Login button remains enabled for correction
+# Tags: [regression, authentication, validation]
+# Test configuration
 appId: com.kapil.jain.boltexponativewind
+name: Login with empty fields validation
+tags: [regression, authentication, validation]
 ---
 
 # Load POM
@@ -13,22 +23,26 @@ appId: com.kapil.jain.boltexponativewind
 - runFlow: "_common/verify_login_screen.yaml"
 
 # Test 1: Empty email validation
-- tapOn: 
-    id: "${output.login.signInButton}"
+- tapOn: "${output.login.signInButton}"
 - assertVisible: 
     id: "email-input-error"
     text: "Email is required"
 
-# Test 2: Empty password validation (after entering email)
-- tapOn: 
+# Clear any input that might be there
+- clearText: "${output.login.emailInput}"
+- clearText: "${output.login.passwordInput}"
+
+# Test 2: Empty password validation (after entering email only)
+- inputText: 
+    text: "test@example.com"
     id: "${output.login.emailInput}"
-- inputText: "test@example.com"
-- tapOn: 
-    id: "${output.login.signInButton}"
+- tapOn: "${output.login.signInButton}"
 - assertVisible: 
     id: "password-input-error"
     text: "Password is required"
 
 # Verify the login button is still visible and enabled
-- assertVisible: 
+- assertVisible: "${output.login.signInButton}"
+- assertVisible:
     id: "${output.login.signInButton}"
+    enabled: true

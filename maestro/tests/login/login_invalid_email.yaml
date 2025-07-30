@@ -1,5 +1,12 @@
-# Test login with invalid email format
+# Test ID: LOGIN-INVALID-EMAIL-001
+# Description: Verify login form validation for invalid email format
+# Preconditions: User is on the login screen
+# Expected Results: System displays appropriate error message for invalid email format
+# Tags: [regression, authentication, validation]
+# Test configuration
 appId: com.kapil.jain.boltexponativewind
+name: Login with invalid email format
+tags: [regression, authentication, validation]
 ---
 
 # Load POM
@@ -31,5 +38,9 @@ appId: com.kapil.jain.boltexponativewind
     text: "Invalid email"
 
 # Verify we're still on the login screen
+- assertVisible: "${output.login.signInButton}"
+
+# Verify the login button is still enabled (allows user to correct the error)
 - assertVisible:
     id: "${output.login.signInButton}"
+    enabled: true

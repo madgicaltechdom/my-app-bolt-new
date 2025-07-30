@@ -31,4 +31,8 @@ tags: [regression, authentication, critical]
 - runFlow: "_common/submit_login.yaml"
 
 # Verify login was successful by checking for home screen element
-- assertVisible: '${output.login.homeScreenElement}'
+- runFlow: 
+    file: "../_common/verify_home_screen.yaml"
+    env:
+      ACTUAL_EMAIL: "Kapil Jain"
+      

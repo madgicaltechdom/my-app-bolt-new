@@ -1,5 +1,15 @@
+# Test ID: LOGIN-NAV-TO-SIGNUP-001
+# Description: Verify navigation from login to signup screen
+# Preconditions: User is on the login screen
+# Expected Results:
+#   - User can navigate to the registration screen
+#   - All registration form elements are visible and accessible
+#   - Back navigation to login is available
+# Tags: [regression, authentication, navigation]
 # Test configuration
 appId: com.kapil.jain.boltexponativewind
+name: Navigation to signup screen
+tags: [regression, authentication, navigation]
 ---
 
 # Load POMs
@@ -11,33 +21,43 @@ appId: com.kapil.jain.boltexponativewind
 # Launch the app
 - runFlow: "_common/launch_app.yaml"
 
-# Verify login screen elements
+# Verify login screen elements are visible
 - runFlow: "_common/verify_login_screen.yaml"
 
-# Navigate to register screen
-- tapOn: 
+# Verify sign up link is visible and clickable
+- assertVisible: "${output.login.signUpLink}"
+- assertVisible:
     id: "${output.login.signUpLink}"
+    enabled: true
+
+# Navigate to register screen
+- tapOn: "${output.login.signUpLink}"
 - waitForAnimationToEnd
 
-# Verify register screen elements
-- assertVisible:
-    id: "back-button"
-- assertVisible:
-    id: "register-title"
-- assertVisible:
-    id: "register-subtitle"
-- assertVisible:
-    id: "${output.register.fullNameInput}"
-- assertVisible:
-    id: "${output.register.emailInput}"
-- assertVisible:
-    id: "${output.register.passwordInput}"
-- assertVisible:
-    id: "${output.register.confirmPasswordInput}"
-- assertVisible:
-    id: "${output.register.signUpButton}"
-- assertVisible:
-    id: "${output.register.signInLink}"
+# Verify register screen elements are visible
+# Header section
+- assertVisible: "back-button"
+- assertVisible: "register-title"
+- assertVisible: "register-subtitle"
+
+# Form inputs
+- assertVisible: "${output.register.fullNameInput}"
+- assertVisible: "${output.register.emailInput}"
+- assertVisible: "${output.register.passwordInput}"
+- assertVisible: "${output.register.confirmPasswordInput}"
+
+# Action buttons
+- assertVisible: "${output.register.signUpButton}"
+- assertVisible: "${output.register.signInLink}"
+
+# Verify back navigation works
+- tapOn: "back-button"
+- waitForAnimationToEnd
+
+# Verify we're back at the login screen
+- assertVisible: "${output.login.signInButton}"
+- assertVisible: "${output.login.emailInput}"
+- assertVisible: "${output.login.passwordInput}"
 
 # Navigate back to login screen
 - tapOn:

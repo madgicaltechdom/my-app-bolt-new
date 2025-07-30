@@ -1,0 +1,78 @@
+# Verifies all home screen elements are visible with proper text content
+# Test ID: VERIFY-HOME-SCREEN-001
+# Description: Verify all home screen elements are displayed correctly with expected content
+# Preconditions: User is logged in and on the home screen
+# Expected Results: All home screen elements are displayed with correct content and text
+# Tags: [regression, home, verification]
+appId: com.kapil.jain.boltexponativewind
+name: Verify Home Screen Elements
+tags: [regression, home, verification]
+---
+# Load Page Object Model (POM) for home screen
+- runScript:
+    file: ../../elements/home.js
+
+# 1. Verify home screen container and structure
+- assertVisible:
+    id: "${output.home.homeScrollView}"
+
+- assertVisible:
+    id: "${output.home.headerContainer}"
+
+# 2. Verify welcome section with text content
+- assertVisible:
+    id: "${output.home.welcomeText}"
+    text: "Welcome back!"
+
+# 3. Verify user name/email display (uses ACTUAL_EMAIL from environment)
+- assertVisible:
+    id: "${output.home.userName}"
+    text: "${ACTUAL_EMAIL}"
+
+# 4. Verify refresh control is present and has correct properties
+- assertVisible:
+    id: "${output.home.refreshControl}"
+
+# 5. Verify quick stats card and its title
+- assertVisible:
+    id: "${output.home.quickStatsCard}"
+
+- assertVisible:
+    id: "${output.home.quickStatsTitle}"
+    text: "Quick Stats"
+
+# 6. Verify stats items with their expected labels and values
+- assertVisible:
+    id: "${output.home.profileLabel}"
+    text: "Profile"
+
+- assertVisible:
+    id: "${output.home.connectionsLabel}"
+    text: "Connections"
+
+- assertVisible:
+    id: "${output.home.daysActiveLabel}"
+    text: "Days Active"
+
+# 7. Verify recent activity card and its title
+- assertVisible:
+    id: "${output.home.recentActivityCard}"
+
+- assertVisible:
+    id: "${output.home.activityTitle}"
+    text: "Recent Activity"
+
+# 8. Verify activity items (adjust text expectations as needed)
+- assertVisible:
+    id: "${output.home.activityItem1}"
+
+- assertVisible:
+    id: "${output.home.activityText1}"
+    text: ".+"  # Matches any non-empty text
+
+- assertVisible:
+    id: "${output.home.activityItem2}"
+
+- assertVisible:
+    id: "${output.home.activityText2}"
+    text: ".+"  # Matches any non-empty text

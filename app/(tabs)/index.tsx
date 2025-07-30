@@ -50,26 +50,30 @@ export default function HomeScreen() {
 
       <View style={styles.card} testID="quick-stats-card">
         <Text style={styles.cardTitle} testID="quick-stats-title">Quick Stats</Text>
-        <View style={styles.statsContainer}>
+        <View style={styles.statsContainer} testID="stats-container">
           <View style={styles.statItem} testID="profile-stat">
             <Text style={styles.statNumber} testID="profile-count">1</Text>
-            <Text style={styles.statLabel}>Profile</Text>
+            <Text style={styles.statLabel} testID="profile-label">Profile</Text>
           </View>
           <View style={styles.statItem} testID="connections-stat">
             <Text style={styles.statNumber} testID="connections-count">0</Text>
-            <Text style={styles.statLabel}>Connections</Text>
+            <Text style={styles.statLabel} testID="connections-label">Connections</Text>
           </View>
           <View style={styles.statItem} testID="activity-stat">
             <Text style={styles.statNumber} testID="days-active-count">5</Text>
-            <Text style={styles.statLabel}>Days Active</Text>
+            <Text style={styles.statLabel} testID="days-active-label">Days Active</Text>
           </View>
         </View>
       </View>
 
       <View style={styles.card} testID="recent-activity-card">
         <Text style={styles.cardTitle} testID="activity-title">Recent Activity</Text>
-        <Text style={styles.activityText} testID="activity-1">Profile created successfully</Text>
-        <Text style={styles.activityText} testID="activity-2">Email verified</Text>
+        <View style={styles.activityItem} testID="activity-item-1">
+          <Text style={styles.activityText} testID="activity-text-1">Profile created successfully</Text>
+        </View>
+        <View style={styles.activityItem} testID="activity-item-2">
+          <Text style={styles.activityText} testID="activity-text-2">Email verified</Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -132,8 +136,12 @@ const styles = StyleSheet.create({
   },
   activityText: {
     fontSize: 14,
-    color: '#374151',
-    marginBottom: 8,
-    paddingLeft: 12,
+    color: '#4B5563',
+    marginBottom: 4,
+  },
+  activityItem: {
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
   },
 });
