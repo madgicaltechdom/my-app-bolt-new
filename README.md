@@ -2,6 +2,24 @@
 
 A complete mobile authentication and profile management application built with Expo (React Native) and Supabase.
 
+## 📑 Table of Contents
+
+- [🚀 Features](#-features)
+- [🛠️ Tech Stack](#%EF%B8%8F-tech-stack)
+- [📦 Installation](#-installation)
+- [🚀 Running the App](#-running-the-app)
+- [📱 App Structure](#-app-structure)
+- [🔐 Authentication Flow](#-authentication-flow)
+- [🎨 UI/UX Features](#-uiux-features)
+- [🔧 Configuration](#-configuration)
+- [🧪 Testing](#-testing)
+  - [Running Tests](#running-tests)
+  - [Maestro E2E Testing](#maestro-e2e-testing)
+- [🚀 Deployment](#-deployment)
+- [📈 Performance Optimizations](#-performance-optimizations)
+- [🔒 Security Features](#-security-features)
+
+
 ## 🚀 Features
 
 - **Authentication System**
@@ -168,11 +186,109 @@ npm run test:coverage
 ```
 
 ### E2E Testing
-The app is ready for E2E testing with Maestro or Detox. Test flows include:
-- User registration
-- Login/logout
-- Profile updates
-- Password reset
+
+#### Maestro E2E Testing
+
+1. **Prerequisites**
+   - Install Maestro by following the [official installation guide](https://maestro.mobile.dev/getting-started/installing-maestro)
+   - Ensure you have Android Studio, Android SDK, and an Android emulator set up
+   - Install ADB (Android Debug Bridge) if not already installed
+
+2. **Building the Android App**
+   ```bash
+   # Install dependencies
+   npm install
+   
+   # Prebuild the Android app (generates android/ directory)
+   npx expo prebuild --platform android
+   
+   # Navigate to the Android directory
+   cd android
+   
+   # Clean the project
+   ./gradlew clean
+   
+   # Build the debug APK
+   ./gradlew assembleDebug
+   
+   # The APK will be available at:
+   # android/app/build/outputs/apk/debug/app-debug.apk
+   
+   # Install the APK on the connected device/emulator
+   adb install -r app/build/outputs/apk/debug/app-debug.apk
+   
+   # (Optional) If you have multiple devices/emulators, specify the target device
+   # adb -s <device-id> install -r app/build/outputs/apk/debug/app-debug.apk
+   
+   # Return to the project root
+   cd ..
+   ```
+
+3. **Verifying the Installation**
+   - Check if the app is installed on your emulator
+   - You can also verify the installation using:
+     ```bash
+     adb shell pm list packages | grep your.app.package.name
+     ```
+   - To launch the app:
+     ```bash
+     adb shell am start -n your.app.package.name/.MainActivity
+     ```
+
+4. **Running Tests**
+   - Navigate to your project directory
+   - To run all tests in the `maestro` directory:
+     ```bash
+     maestro test maestro/
+     ```
+   - To run a specific test (e.g., login test):
+     ```bash
+     maestro test maestro/tests/login/login_success.yaml
+     ```
+
+3. **Example Test: login_success.yaml**
+   ```yaml
+   # Test configuration
+   appId: com.kapil.jain.boltexponativewind
+   ---
+   
+   # Load POM
+   - runScript: 
+       file: ../../elements/login.js
+   
+   # Launch the app
+   - runFlow: "_common/launch_app.yaml"
+   
+   # Verify login screen elements
+   - runFlow: "_common/verify_login_screen.yaml"
+   
+   # Fill in credentials
+   - runFlow: 
+       file: "_common/fill_credentials.yaml"
+       env:
+         LOGIN_EMAIL: "kapil.jain@madgicaltechdom.com"
+         LOGIN_PASSWORD: "Madgicaltechdom1"
+   
+   # Submit login form
+   - runFlow: "_common/submit_login.yaml"
+   
+   # Verify login was successful by checking for home screen element
+   - assertVisible: '${output.login.homeScreenElement}'
+   ```
+
+4. **Best Practices**
+   - Organize test files in the `maestro/tests` directory with logical subdirectories
+   - Group related test files (e.g., `login/`, `profile/`) under their respective feature directories
+   - Place common test utilities and shared flows in `maestro/tests/_common`
+   - Use descriptive test names that clearly indicate the test scenario
+   - Include assertions to verify test results
+   - Clean up test data after test completion
+
+5. **Viewing Test Results**
+   - Test results and recordings are available in the `maestro` directory
+   - Use the Maestro Studio for visual test recording and debugging
+
+For more information, refer to the [Maestro Documentation](https://maestro.mobile.dev/).
 
 ## 🚀 Deployment
 
