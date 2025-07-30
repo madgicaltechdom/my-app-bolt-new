@@ -26,6 +26,7 @@ tags: [regression, authentication, critical]
       LOGIN_EMAIL: "kapil.jain@madgicaltechdom.com"
       LOGIN_PASSWORD: "Madgicaltechdom1"
 
+
 # Submit login form
 - runFlow: "_common/submit_login.yaml"
 

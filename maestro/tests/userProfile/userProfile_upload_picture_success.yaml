@@ -1,5 +1,14 @@
-# Test configuration
+# Test: Profile Picture Upload
 appId: com.madgicaltechdom.storagesysapp
+name: User Profile - Upload Picture Success
+description: "Test to verify successful upload of profile picture"
+tags:
+  - profile
+  - upload
+  - media
+  - regression
+  - e2e
+  - flaky
 ---
 
 # Load POM

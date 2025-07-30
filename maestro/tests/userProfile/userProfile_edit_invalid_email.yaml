@@ -1,5 +1,14 @@
-# Test configuration
+# Test: Edit Profile with Invalid Email
 appId: com.madgicaltechdom.storagesysapp
+name: User Profile - Edit with Invalid Email
+description: "Test to verify proper validation when entering an invalid email"
+tags:
+  - profile
+  - edit
+  - validation
+  - negative-test
+  - regression
+  - e2e
 ---
 
 # Load POM

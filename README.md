@@ -90,7 +90,7 @@ A complete mobile authentication and profile management application built with E
    ```
 
 ## 🚀 Running the App
-
+APK - https://drive.google.com/file/d/1myTe3A93GxOTpmT5K6oycthNnuVqNjSH/view?usp=drive_link
 ### Development
 ```bash
 npm run dev

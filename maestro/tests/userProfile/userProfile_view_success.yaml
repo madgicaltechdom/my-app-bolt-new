@@ -1,5 +1,13 @@
-# Test configuration
+# Test: View User Profile Success
 appId: com.madgicaltechdom.storagesysapp
+name: User Profile - View Success
+description: "Test to verify successful viewing of user profile"
+tags:
+  - profile
+  - view
+  - smoke
+  - regression
+  - e2e
 ---
 
 # Load POM

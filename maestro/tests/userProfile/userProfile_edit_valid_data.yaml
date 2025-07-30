@@ -1,5 +1,13 @@
-# Test configuration
+# Test: Edit User Profile with Valid Data
 appId: com.madgicaltechdom.storagesysapp
+name: User Profile - Edit with Valid Data
+description: "Test to verify successful profile update with valid data"
+tags:
+  - profile
+  - edit
+  - data-entry
+  - regression
+  - e2e
 ---
 
 # Load POM
@@ -20,7 +28,7 @@ appId: com.madgicaltechdom.storagesysapp
 - runFlow: 
     file: "_common/fill_profile_form.yaml"
     env:
-      NAME: "John Updated"
+      NAME: "John Doe"
       BIO: "Updated bio information for testing"
 
 # Submit the form
@@ -32,9 +40,9 @@ appId: com.madgicaltechdom.storagesysapp
 
 # Verify updated data is displayed
 - assertVisible: 
-    text: "John Updated"
+    text: "John Doe"
 - assertVisible: 
     text: "Updated bio information for testing"
 
 # Take screenshot for verification
-- takeScreenshot: "user_profile_updated"
+- takeScreenshot: "profile_edit_success"
