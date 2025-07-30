@@ -243,10 +243,10 @@ npm run test:coverage
      ```
    - To run a specific test (e.g., login test):
      ```bash
-     maestro test maestro/login-successful.yaml
+     maestro test maestro/tests/login/login_success.yaml
      ```
 
-3. **Example Test: login-successful.yaml**
+3. **Example Test: login_success.yaml**
    ```yaml
    appId: com.your.appid  # Replace with your app's bundle ID
    
