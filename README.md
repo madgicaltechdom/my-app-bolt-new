@@ -168,11 +168,90 @@ npm run test:coverage
 ```
 
 ### E2E Testing
-The app is ready for E2E testing with Maestro or Detox. Test flows include:
-- User registration
-- Login/logout
-- Profile updates
-- Password reset
+
+#### Maestro E2E Testing
+
+1. **Prerequisites**
+   - Install Maestro by following the [official installation guide](https://maestro.mobile.dev/getting-started/installing-maestro)
+   - Ensure you have Android Studio, Android SDK, and an Android emulator set up
+   - Install ADB (Android Debug Bridge) if not already installed
+
+2. **Building the Android App**
+   ```bash
+   # Install dependencies
+   npm install
+   
+   # Prebuild the Android app (generates android/ directory)
+   npx expo prebuild --platform android
+   
+   # Navigate to the Android directory
+   cd android
+   
+   # Clean the project
+   ./gradlew clean
+   
+   # Build the debug APK
+   ./gradlew assembleDebug
+   
+   # The APK will be available at:
+   # android/app/build/outputs/apk/debug/app-debug.apk
+   
+   # Install the APK on the connected device/emulator
+   adb install -r app/build/outputs/apk/debug/app-debug.apk
+   
+   # (Optional) If you have multiple devices/emulators, specify the target device
+   # adb -s <device-id> install -r app/build/outputs/apk/debug/app-debug.apk
+   
+   # Return to the project root
+   cd ..
+   ```
+
+3. **Verifying the Installation**
+   - Check if the app is installed on your emulator
+   - You can also verify the installation using:
+     ```bash
+     adb shell pm list packages | grep your.app.package.name
+     ```
+   - To launch the app:
+     ```bash
+     adb shell am start -n your.app.package.name/.MainActivity
+     ```
+
+4. **Running Tests**
+   - Navigate to your project directory
+   - To run all tests in the `maestro` directory:
+     ```bash
+     maestro test maestro/
+     ```
+   - To run a specific test (e.g., login test):
+     ```bash
+     maestro test maestro/login-successful.yaml
+     ```
+
+3. **Example Test: login-successful.yaml**
+   ```yaml
+   appId: com.your.appid  # Replace with your app's bundle ID
+   
+   - launchApp
+   - assertVisible: "Login"
+   - inputText: "email@example.com", into: "Email"
+   - inputSecret: "yourpassword", into: "Password"
+   - tapOn: "Login"
+   - assertVisible: "Welcome"
+   - stopApp
+   ```
+
+4. **Best Practices**
+   - Keep test files in an `e2e` directory
+   - Use descriptive test names
+   - Include assertions to verify test results
+   - Clean up test data after test completion
+
+5. **Viewing Test Results**
+   - Test results and recordings are available in the `maestro` directory
+   - Use the Maestro Studio for visual test recording and debugging
+
+For more information, refer to the [Maestro Documentation](https://maestro.mobile.dev/).
 
 ## 🚀 Deployment
 
