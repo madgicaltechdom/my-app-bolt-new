@@ -248,15 +248,32 @@ npm run test:coverage
 
 3. **Example Test: login_success.yaml**
    ```yaml
-   appId: com.your.appid  # Replace with your app's bundle ID
+   # Test configuration
+   appId: com.kapil.jain.boltexponativewind
+   ---
    
-   - launchApp
-   - assertVisible: "Login"
-   - inputText: "email@example.com", into: "Email"
-   - inputSecret: "yourpassword", into: "Password"
-   - tapOn: "Login"
-   - assertVisible: "Welcome"
-   - stopApp
+   # Load POM
+   - runScript: 
+       file: ../../elements/login.js
+   
+   # Launch the app
+   - runFlow: "_common/launch_app.yaml"
+   
+   # Verify login screen elements
+   - runFlow: "_common/verify_login_screen.yaml"
+   
+   # Fill in credentials
+   - runFlow: 
+       file: "_common/fill_credentials.yaml"
+       env:
+         LOGIN_EMAIL: "kapil.jain@madgicaltechdom.com"
+         LOGIN_PASSWORD: "Madgicaltechdom1"
+   
+   # Submit login form
+   - runFlow: "_common/submit_login.yaml"
+   
+   # Verify login was successful by checking for home screen element
+   - assertVisible: '${output.login.homeScreenElement}'
    ```
 
 4. **Best Practices**
