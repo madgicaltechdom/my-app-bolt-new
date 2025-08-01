@@ -48,5 +48,5 @@ appId: com.kapil.jain.boltexponativewind
 
 - scrollUntilVisible:
     element:
-      id: '${output.register.fullNameInput}'
+      text: '${output.register.fullNameLabel}'
     direction: UP

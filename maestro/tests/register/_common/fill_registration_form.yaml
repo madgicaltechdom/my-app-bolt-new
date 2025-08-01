@@ -9,19 +9,22 @@
 #     CONFIRM_PASSWORD: "${output.testData.users.newUser.password}"
 appId: com.kapil.jain.boltexponativewind
 --- 
-- tapOn: '${output.register.fullNameInput}'
+- tapOn: 
+    id: '${output.register.fullNameInput}'
 - inputText: '${FULL_NAME}'
 - assertVisible:
     id: '${output.register.fullNameInput}'
     text: '${FULL_NAME}'
 
-- tapOn: '${output.register.emailInput}'
+- tapOn: 
+    id: '${output.register.emailInput}'
 - inputText: '${EMAIL}'
 - assertVisible:
     id: '${output.register.emailInput}'
     text: '${EMAIL}'
 
-- tapOn: '${output.register.passwordInput}'
+- tapOn: 
+    id: '${output.register.passwordInput}'
 - inputText: '${PASSWORD}'
 - assertVisible:
     id: '${output.register.passwordInput}'
@@ -31,8 +34,10 @@ appId: com.kapil.jain.boltexponativewind
     element:
       id: '${output.register.signUpButton}'
 
-- tapOn: '${output.register.confirmPasswordInput}'
+- tapOn: 
+    id:'${output.register.confirmPasswordInput}'
 - inputText: '${CONFIRM_PASSWORD}'
 - assertVisible:
     id: '${output.register.confirmPasswordInput}'
+    text: '${CONFIRM_PASSWORD}'
 
