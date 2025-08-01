@@ -31,10 +31,10 @@ tags: [regression, authentication, critical]
 - runFlow: 
     file: "_common/fill_registration_form.yaml"
     env:
-      FULL_NAME: "${output.testData.users.newUser.name}"
-      EMAIL: "${output.testData.users.newUser.email}"
-      PASSWORD: "${output.testData.users.newUser.password}"
-      CONFIRM_PASSWORD: "${output.testData.users.newUser.password}"
+      FULL_NAME: "${output.testData.users.validUser.name}"
+      EMAIL: "${output.testData.users.validUser.email}"
+      PASSWORD: "${output.testData.users.validUser.password}"
+      CONFIRM_PASSWORD: "${output.testData.users.validUser.password}"
 
 # Submit registration form
 - runFlow: "_common/submit_registration.yaml"
@@ -47,4 +47,4 @@ tags: [regression, authentication, critical]
 
 # Verify navigation to email verification screen
 - assertVisible: 'Verify Your Email'
-- assertVisible: '${output.testData.users.newUser.email}'
+- assertVisible: '${output.testData.users.validUser.email}'
