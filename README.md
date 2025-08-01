@@ -251,21 +251,53 @@ For EVERY UI element verification, include BOTH:
    - Include proper cleanup in teardown
    - Verify all error states and messages
    - Test both positive and negative scenarios
+
+All tests should follow the same patterns as the existing login tests but with register-specific elements and validations.   
 ```
 
 #### Example Test Case
 
-```yaml
-# Test metadata
-- testID: REG-001
-  description: "Verify successful registration with valid credentials"
-  tags: [regression, authentication]
+Here's an example from the login flow that demonstrates proper test structure and element verification:
 
-# Test steps
-- launchApp
-- assertVisible:
-    id: '${register.signUpButtonId}'
-    text: '${register.signUpButton}'
+```yaml
+# Test ID: LOGIN-SUCCESS-001
+# Description: Verify successful user login with valid credentials
+# Preconditions: User is registered and not logged in
+# Expected Results: User is logged in and redirected to the main app screen
+# Tags: [regression, authentication, login]
+appId: com.your.app.id
+name: "Login with valid credentials"
+tags: [regression, authentication, critical]
+---
+# Load Page Object Model
+- runScript: 
+    file: "../../elements/login.js"
+
+# Launch the app
+- runFlow: "_common/launch_app.yaml"
+
+# Verify login screen elements
+- runFlow: "_common/verify_login_screen.yaml"
+
+# Load test data
+- runScript: 
+    file: "../../config/testdata.js"
+
+# Fill in credentials using environment variables
+- runFlow: 
+    file: "_common/fill_credentials.yaml"
+    env:
+      LOGIN_EMAIL: "${output.testData.users.validUser.email}"
+      LOGIN_PASSWORD: "${output.testData.users.validUser.password}"
+
+# Submit login form
+- runFlow: "_common/submit_login.yaml"
+
+# Verify successful login by checking for home screen element
+- runFlow: 
+    file: "../_common/verify_home_screen.yaml"
+    env:
+      ACTUAL_EMAIL: "${output.testData.users.validUser.name}"
 
 # Input field with both ID and placeholder verification
 - tapOn: '${register.emailInput}'
