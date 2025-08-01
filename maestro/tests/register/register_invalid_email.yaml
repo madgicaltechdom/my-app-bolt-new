@@ -1,0 +1,51 @@
+# Test ID: REG-VALIDATION-002
+# Description: Verify validation for invalid email format
+# Preconditions: User is on the registration screen
+# Expected Results: Appropriate error message is displayed for invalid email format
+# Tags: [regression, validation]
+appId: com.kapil.jain.boltexponativewind
+name: "Registration - Invalid Email Format"
+tags: [regression, validation]
+---
+# Load Page Object Model and test data
+- runScript: 
+    file: "../../elements/register.js"
+- runScript:
+    file: "../../config/testdata.js"
+
+# Launch the app and navigate to registration
+- runFlow: "../_common/launch_app.yaml"
+- tapOn: "${login.registerLink}"
+
+# Verify registration screen elements
+- runFlow: "_common/verify_register_screen.yaml"
+
+# Load test data
+- runScript: 
+    file: "../../config/testdata.js"
+
+# Enter invalid email format
+- tapOn: '${register.emailInput}'
+- inputText: '${output.testData.users.invalidEmail}'
+- tapOn: '${register.fullNameInput}'  # Tap away to trigger validation
+
+# Verify invalid email error message
+- assertVisible:
+    id: 'email-error'
+    text: '${register.invalidEmailError}'
+
+# Verify sign up button is disabled with invalid email
+- assertNotVisible: '${register.signUpButton}'
+
+# Clear the invalid email
+- tapOn: '${register.emailInput}'
+- clearText
+
+# Enter another invalid format
+- inputText: 'missingatsign'
+- tapOn: '${register.fullNameInput}'
+
+# Verify error persists
+- assertVisible:
+    id: 'email-error'
+    text: '${register.invalidEmailError}'

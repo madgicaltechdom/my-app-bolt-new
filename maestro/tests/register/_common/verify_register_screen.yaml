@@ -1,0 +1,52 @@
+# Verify Registration Screen Common Flow
+# Verifies all elements on the registration screen are present and have correct properties
+appId: com.kapil.jain.boltexponativewind
+---
+# Verify screen title
+- assertVisible:
+    id: '${output.register.title}'
+    text: '${output.register.screenTitle}'
+
+# Verify input fields and their placeholders
+- assertVisible:
+    id: '${output.register.fullNameInput}'
+    enabled: true
+- assertVisible:    
+    text: '${output.register.fullNameLabel}'
+
+- assertVisible:
+    id: '${output.register.emailInput}'
+    enabled: true
+- assertVisible:    
+    text: '${output.register.emailLabel}'
+
+- assertVisible:
+    id: '${output.register.passwordInput}'
+    enabled: true   
+- assertVisible:    
+    text: '${output.register.passwordLabel}'
+
+- scrollUntilVisible:
+    element:
+      id: '${output.register.signUpButton}'
+
+- assertVisible:
+    id: '${output.register.confirmPasswordInput}'
+    enabled: true
+- assertVisible:    
+    text: '${output.register.confirmPasswordLabel}'
+
+# Verify sign up button
+- assertVisible:
+    id: '${output.register.signUpButton}'
+    enabled: true
+
+# Verify sign in link
+- assertVisible:
+    id: '${output.register.signInLink}'
+    enabled: true
+
+- scrollUntilVisible:
+    element:
+      id: '${output.register.fullNameInput}'
+    direction: UP

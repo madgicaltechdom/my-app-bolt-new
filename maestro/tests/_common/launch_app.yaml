@@ -1,0 +1,9 @@
+# Launch App Common Flow
+# This flow launches the app with a clean state
+# Usage: Include this at the beginning of test flows
+appId: com.kapil.jain.boltexponativewind
+--- 
+- launchApp:
+    clearState: true
+    stopApp: true
+- waitForAnimationToEnd

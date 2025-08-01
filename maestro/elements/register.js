@@ -1,4 +1,8 @@
 output.register = {
+  // Screen elements
+  title: 'register-title',
+  screenTitle: 'Create Account',
+  
   // Input fields
   fullNameInput: 'full-name-input',
   emailInput: 'email-input',
@@ -7,7 +11,15 @@ output.register = {
   
   // Buttons and links
   signUpButton: 'sign-up-button',
+  signUpButtonText: 'Create Account',
   signInLink: 'sign-in-link',
+  signInLinkText: 'Sign In',
+  
+  // Form labels
+  fullNameLabel: 'Full Name',
+  emailLabel: 'Email',
+  passwordLabel: 'Password',
+  confirmPasswordLabel: 'Confirm Password',
   
   // Error messages
   fullNameRequiredError: 'Full name is required',

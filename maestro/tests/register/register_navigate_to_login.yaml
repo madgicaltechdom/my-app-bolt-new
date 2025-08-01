@@ -1,0 +1,29 @@
+# Test ID: REG-NAV-001
+# Description: Verify navigation from registration to login screen
+# Preconditions: User is on the registration screen
+# Expected Results: User is navigated to the login screen when clicking 'Sign In' link
+# Tags: [regression, navigation]
+appId: com.kapil.jain.boltexponativewind
+name: "Registration - Navigate to Login"
+tags: [regression, navigation]
+---
+# Load Page Object Model
+- runScript: 
+    file: "../../elements/register.js"
+
+# Launch the app and navigate to registration
+- runFlow: "../_common/launch_app.yaml"
+- tapOn: "${login.registerLink}"
+
+# Verify registration screen elements
+- runFlow: "_common/verify_register_screen.yaml"
+
+# Click the 'Sign In' link
+- tapOn: '${register.signInLink}'
+
+# Verify navigation to login screen
+- runFlow: "../login/_common/verify_login_screen.yaml"
+
+# Verify the back button returns to registration
+- back
+- assertVisible: 'Create an Account'

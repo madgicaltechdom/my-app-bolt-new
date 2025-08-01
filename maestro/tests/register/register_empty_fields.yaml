@@ -1,0 +1,45 @@
+# Test ID: REG-VALIDATION-001
+# Description: Verify validation errors when all required fields are empty
+# Preconditions: User is on the registration screen
+# Expected Results: Appropriate error messages are displayed for all empty required fields
+# Tags: [regression, validation, critical]
+appId: com.kapil.jain.boltexponativewind
+name: "Registration - Empty Field Validations"
+tags: [regression, validation, critical]
+---
+# Load Page Object Model
+- runScript: 
+    file: "../../elements/register.js"
+
+# Launch the app and navigate to registration
+- runFlow: "../_common/launch_app.yaml"
+- tapOn: "${login.registerLink}"
+
+# Verify registration screen elements
+- runFlow: "_common/verify_register_screen.yaml"
+
+# Attempt to submit empty form
+- tapOn: '${register.signUpButton}'
+
+# Verify all required field error messages are displayed
+- assertVisible:
+    id: 'fullname-error'
+    text: '${register.fullNameRequiredError}'
+
+- assertVisible:
+    id: 'email-error'
+    text: '${register.emailRequiredError}'
+
+- assertVisible:
+    id: 'password-error'
+    text: '${register.passwordRequiredError}'
+
+- assertVisible:
+    id: 'confirm-password-error'
+    text: '${register.confirmPasswordRequiredError}'
+
+# Verify the sign up button is still enabled for another attempt
+- assertVisible: '${register.signUpButton}'
+
+# Verify we're still on the registration page
+- assertVisible: 'Create an Account'

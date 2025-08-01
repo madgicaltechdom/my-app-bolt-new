@@ -1,0 +1,14 @@
+# Submit Registration Form Common Flow
+# Usage: Include this flow after filling the registration form
+# Handles form submission and basic error checking
+appId: com.kapil.jain.boltexponativewind
+--- 
+# Submit the registration form
+- tapOn: '${register.signUpButton}'
+
+# Verify the button is in loading state (if applicable)
+# - assertVisible: '${register.signUpButton}'
+#   enabled: false
+
+# Note: Success verification is handled in individual test cases
+# as it may vary based on the test scenario

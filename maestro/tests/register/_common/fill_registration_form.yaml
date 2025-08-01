@@ -1,0 +1,38 @@
+# Fill Registration Form Common Flow
+# Usage: Use with env variables for test data
+# Example:
+# - runFlow: "_common/fill_registration_form.yaml"
+#   env:
+#     FULL_NAME: "${output.testData.users.newUser.name}"
+#     EMAIL: "${output.testData.users.newUser.email}"
+#     PASSWORD: "${output.testData.users.newUser.password}"
+#     CONFIRM_PASSWORD: "${output.testData.users.newUser.password}"
+appId: com.kapil.jain.boltexponativewind
+--- 
+- tapOn: '${output.register.fullNameInput}'
+- inputText: '${FULL_NAME}'
+- assertVisible:
+    id: '${output.register.fullNameInput}'
+    text: '${FULL_NAME}'
+
+- tapOn: '${output.register.emailInput}'
+- inputText: '${EMAIL}'
+- assertVisible:
+    id: '${output.register.emailInput}'
+    text: '${EMAIL}'
+
+- tapOn: '${output.register.passwordInput}'
+- inputText: '${PASSWORD}'
+- assertVisible:
+    id: '${output.register.passwordInput}'
+
+
+- scrollUntilVisible:
+    element:
+      id: '${output.register.signUpButton}'
+
+- tapOn: '${output.register.confirmPasswordInput}'
+- inputText: '${CONFIRM_PASSWORD}'
+- assertVisible:
+    id: '${output.register.confirmPasswordInput}'
+
