@@ -14,7 +14,7 @@ A complete mobile authentication and profile management application built with E
 - [🔧 Configuration](#-configuration)
 - [🧪 Testing](#-testing)
   - [Running Tests](#running-tests)
-  - [Test Case Generation Guidelines](#test-case-generation-guidelines)
+  - [Test Case Generation Guidelines](#maestro-test-case-generation-guidelines)
   - [Maestro E2E Testing](#maestro-e2e-testing)
 - [🚀 Deployment](#-deployment)
 - [📈 Performance Optimizations](#-performance-optimizations)
