@@ -4,7 +4,8 @@
 appId: com.kapil.jain.boltexponativewind
 --- 
 # Submit the registration form
-- tapOn: '${register.signUpButton}'
+- tapOn: 
+    id: '${output.register.signUpButton}'
 
 # Verify the button is in loading state (if applicable)
 # - assertVisible: '${register.signUpButton}'

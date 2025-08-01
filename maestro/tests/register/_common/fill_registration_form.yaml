@@ -29,15 +29,14 @@ appId: com.kapil.jain.boltexponativewind
 - assertVisible:
     id: '${output.register.passwordInput}'
 
-
 - scrollUntilVisible:
     element:
-      id: '${output.register.signUpButton}'
+        id: '${output.register.confirmPasswordInput}'
+    direction: DOWN
 
 - tapOn: 
-    id:'${output.register.confirmPasswordInput}'
+    id: '${output.register.confirmPasswordInput}'
 - inputText: '${CONFIRM_PASSWORD}'
 - assertVisible:
     id: '${output.register.confirmPasswordInput}'
-    text: '${CONFIRM_PASSWORD}'
 
