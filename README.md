@@ -15,14 +15,6 @@ A complete mobile authentication and profile management application built with E
 - [🧪 Testing](#-testing)
   - [Running Tests](#running-tests)
   - [Test Case Generation Guidelines](#test-case-generation-guidelines)
-    - [1. Test ID Requirements](#1-test-id-requirements-critical)
-    - [2. Element Verification](#2-element-verification-mandatory)
-    - [3. Test Data Management](#3-test-data-management)
-    - [4. Screen Verification](#4-screen-verification)
-    - [5. Test Structure](#5-test-structure)
-    - [6. Test Coverage](#6-test-coverage)
-    - [7. Quality Requirements](#7-quality-requirements)
-    - [Example Test Case](#example-test-case)
   - [Maestro E2E Testing](#maestro-e2e-testing)
 - [🚀 Deployment](#-deployment)
 - [📈 Performance Optimizations](#-performance-optimizations)
@@ -194,7 +186,7 @@ npm test
 npm run test:coverage
 ```
 
-### Test Case Generation Guidelines
+### Maestro Test Case Generation Guidelines
 
 Create Maestro test cases for the  [feature] following these specific guidelines from @MAESTRO_TEST_GENERATOR_PROMPT.md.
 
