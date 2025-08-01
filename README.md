@@ -185,6 +185,113 @@ npm test
 npm run test:coverage
 ```
 
+### Test Case Generation Guidelines
+
+Create Maestro test cases for the  [feature] following these specific guidelines from @MAESTRO_TEST_GENERATOR_PROMPT.md.
+
+When creating new test cases for features, follow these comprehensive guidelines to ensure consistency and reliability:
+
+#### 1. Test ID Requirements (CRITICAL)
+- **All** interactive elements must have `testID` props
+- Follow this naming convention for testIDs:
+  ```
+  Input fields: [purpose]-input (e.g., 'email-input', 'password-input')
+  Buttons: [action]-button (e.g., 'sign-up-button')
+  Links: [action]-link (e.g., 'sign-in-link')
+  Error messages: [field]-error (e.g., 'email-error')
+  ```
+- Test IDs should be descriptive and consistent
+- Never use dynamic values in testIDs
+- Add testID to both container and text elements
+
+#### 2. Element Verification (MANDATORY)
+For EVERY UI element verification, include BOTH:
+
+1. Text-based verification:
+   ```yaml
+   - assertVisible: '${output.screen.elementText}'
+   ```
+
+2. ID and text verification:
+   ```yaml
+   - assertVisible:
+       id: '${output.screen.elementId}'
+       text: '${output.screen.elementText}'
+   ```
+
+#### 3. Test Data Management
+- Store all test data in `maestro/config/testdata.js`
+- Use JavaScript in testdata.js for all test data
+   - Implement random email generation in JavaScript
+   - Structure test data with success/error scenarios
+   - Never hardcode test data in test files
+
+#### 4. Screen Verification (Section 10):
+   - Verify all interactive elements exist with both ID and text
+   - Include placeholder text verification for all input fields
+   - Mark password fields with `secure: true`
+   - Verify element states (enabled/disabled) where applicable
+
+#### 5. Test Structure (Sections 2-4):
+   - Use proper metadata format (ID, description, preconditions, expected results)
+   - Create reusable subflows for common actions
+   - Follow file naming conventions (lowercase_with_underscores)
+   - Group related tests in appropriate directories
+
+#### 6. Test Coverage:
+   - Happy path (successful registration)
+   - Field validations (empty fields, email format, password rules)
+   - Error states (duplicate email, server errors)
+   - Navigation flows (to login, back button)
+   - Form state management
+
+#### 7. Quality Requirements (Section 11):
+   - Ensure test independence (no test depends on another)
+   - Include proper cleanup in teardown
+   - Verify all error states and messages
+   - Test both positive and negative scenarios
+```
+
+#### Example Test Case
+
+```yaml
+# Test metadata
+- testID: REG-001
+  description: "Verify successful registration with valid credentials"
+  tags: [regression, authentication]
+
+# Test steps
+- launchApp
+- assertVisible:
+    id: '${register.signUpButtonId}'
+    text: '${register.signUpButton}'
+
+# Input field with both ID and placeholder verification
+- tapOn: '${register.emailInput}'
+- inputText: '${testData.validEmail}'
+- assertVisible:
+    id: '${register.emailInput}'
+    text: '${testData.validEmail}'
+    placeholder: 'Email'
+
+# Secure field
+- tapOn: '${register.passwordInput}'
+- inputSecret: '${testData.validPassword}'
+- assertVisible:
+    id: '${register.passwordInput}'
+    secure: true
+
+# Submit form
+- tapOn: '${register.submitButton}'
+
+# Verify success
+- assertVisible:
+    id: '${register.successMessage}'
+    text: 'Registration successful!'
+```
+
+For more detailed guidelines, see the [Maestro Test Guidelines](./maestro/README.md).
+
 ### E2E Testing
 
 #### Maestro E2E Testing
